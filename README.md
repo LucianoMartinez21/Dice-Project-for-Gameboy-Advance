@@ -1,7 +1,7 @@
 # Dice Gameboy Application
 Small Application to roll a dice in the GameBoy Advance Console, Implemented using the public library Butano for C++.
 
-Things to fix are:
+Things to fix/Add are:
 * Implement D6, D8, D10, D12, D20 and D100.
 * Add sound effects
 
