@@ -38,7 +38,7 @@ make
 
 * **Coding: Luciano Martínez**
 * **Interface by Luciano Martínez**
-* **Art by Gerson Marcelo: https://gersonmarcelo.itch.io/gems-spritesheets & https://es.fiverr.com/gersonmarcel544**
+* **Art by Gerson Marcelo: https://gersonmarcelo.itch.io/ & https://es.fiverr.com/gersonmarcel544**
 
 I don't claim any ownership over The Gameboy or Gameboy Advance trademark for the development for this project, Gameboy, Gameboy Advance and all its rights related are own by Nintendo©.
 
