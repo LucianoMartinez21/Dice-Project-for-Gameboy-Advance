@@ -10,6 +10,7 @@
 #include <bn_vector.h>
 #include <stdint.h>
 #include "bn_sprite_animate_actions.h"
+#include "Dice.h"
 
 extern uint8_t DiceIndex;
 extern bn::vector<bn::sprite_ptr, 5> global_sprites;
@@ -22,5 +23,8 @@ enum DiceTypes
 extern bool IsRolling;
 extern bool Credits;
 extern uint8_t DimeSecreteValue;
-
+extern bool IsBouncing;
+extern float xspeed;
+extern float yspeed;
 void InitSprites();
+void AddRandomSpeed();

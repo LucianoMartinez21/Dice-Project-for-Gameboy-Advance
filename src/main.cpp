@@ -18,14 +18,13 @@
 #include <bn_vector.h>
 #include "globals_var.h"
 #include "JoypadHandler.h"
+//#include <bn_display.h>
+#define WIDTH 240
+#define HEIGHT 160
 int main()
 {
     bn::core::init();
     InitSprites();
-
-    /*bn::sprite_ptr CreditsSprite = bn::sprite_items::credits1.create_sprite(-80,90);
-    bn::sprite_ptr CreditsSprite2 = bn::sprite_items::credits2.create_sprite(-16,90);
-    bn::sprite_ptr CreditsSprite3 = bn::sprite_items::credits3.create_sprite(48,90);*/
 
     bn::sprite_animate_action<4> Action1 = bn::create_sprite_animate_action_forever(
             global_sprites.at(2), 10, bn::sprite_items::credits1.tiles_item(), 0, 1, 2, 3
@@ -99,11 +98,23 @@ int main()
                 ActionAnimation = bn::create_sprite_animate_action_once(
                         global_sprites.at(0), 4, bn::sprite_items::d20.tiles_item(), 0, 1, 2, 3, 4, 5, 6, 7, 8, 9
                     );
+                AddRandomSpeed();
+                IsBouncing = true;
             }
             IsRolling = false;
         }
         if (!ActionAnimation.done())
+        {
             ActionAnimation.update();
+            if(IsBouncing)
+            {
+                global_sprites.at(0).set_x(global_sprites.at(0).x() + xspeed);
+                global_sprites.at(0).set_y(global_sprites.at(0).y() + yspeed);
+                if(global_sprites.at(0).x() >= (WIDTH/2) || global_sprites.at(0).x() <= -(WIDTH/2)) xspeed *= -1.0f;
+                if(global_sprites.at(0).y() >= (HEIGHT/2) || global_sprites.at(0).y() <= -(HEIGHT/2)) yspeed *= -1.0f;
+            }
+        }
+
         else if(ActionAnimation.done() && !IsRolling)
         {
             ActionAnimation.reset();
@@ -125,9 +136,22 @@ int main()
             }
             else if (DiceIndex == D20)
             {
+                IsBouncing = false;
                 ActionAnimation = bn::create_sprite_animate_action_once(
                         global_sprites.at(0), 4, bn::sprite_items::d20.tiles_item(), 0, 0
                     );
+                while((global_sprites.at(0).x() != 0) || (global_sprites.at(0).y() != 0))
+                {
+                    if(global_sprites.at(0).x() > 0)
+                        global_sprites.at(0).set_x(global_sprites.at(0).x() - abs(xspeed));
+                    if(global_sprites.at(0).x() < 0)
+                        global_sprites.at(0).set_x(global_sprites.at(0).x() + abs(xspeed));
+                    if(global_sprites.at(0).y() > 0)
+                        global_sprites.at(0).set_y(global_sprites.at(0).y() - abs(yspeed));
+                    if(global_sprites.at(0).y() < 0)
+                        global_sprites.at(0).set_y(global_sprites.at(0).y() + abs(yspeed));
+                    bn::core::update();
+                }
             }
         }
         Action1.update();
